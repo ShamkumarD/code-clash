@@ -1,0 +1,86 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Stores user progress, stats, and preferences.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "xp": { "type": "integer" },
+        "level": { "type": "integer" },
+        "rank": { "type": "string", "enum": ["Bronze", "Silver", "Gold", "Platinum", "Diamond"] },
+        "preferredLanguage": { "type": "string", "enum": ["C", "C++", "Python", "Java", "JavaScript"] },
+        "stats": {
+          "type": "object",
+          "properties": {
+            "wins": { "type": "integer" },
+            "losses": { "type": "integer" },
+            "problemsSolved": { "type": "integer" },
+            "likes": { "type": "integer" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "email", "xp", "level", "rank"]
+    },
+    "Match": {
+      "title": "Coding Battle Match",
+      "description": "Stores real-time match data.",
+      "type": "object",
+      "properties": {
+        "roomId": { "type": "string" },
+        "players": { "type": "array", "items": { "type": "string" } },
+        "status": { "type": "string", "enum": ["waiting", "active", "finished"] },
+        "problemId": { "type": "string" },
+        "winner": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Message": {
+      "title": "Direct Message",
+      "description": "In-platform messaging between users.",
+      "type": "object",
+      "properties": {
+        "senderId": { "type": "string" },
+        "receiverId": { "type": "string" },
+        "content": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "read": { "type": "boolean" }
+      }
+    },
+    "Problem": {
+      "title": "Coding Problem",
+      "description": "Coding challenges for users.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "difficulty": { "type": "string", "enum": ["Easy", "Medium", "Hard"] },
+        "language": { "type": "string" },
+        "starterCode": { "type": "string" },
+        "testCases": { "type": "array", "items": { "type": "object" } }
+      }
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "matches/{matchId}": {
+      "schema": "Match",
+      "description": "Active and past matches"
+    },
+    "messages/{messageId}": {
+      "schema": "Message",
+      "description": "Direct messages"
+    },
+    "problems/{problemId}": {
+      "schema": "Problem",
+      "description": "Coding challenges"
+    }
+  }
+}

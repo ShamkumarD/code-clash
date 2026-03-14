@@ -1,0 +1,8 @@
+{
+  "name": "CodeQuest: 3D Coding Battles",
+  "description": "A gamified 3D coding learning platform with real-time multiplayer battles, AI-powered challenges, and global leaderboards.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
